@@ -1,0 +1,56 @@
+-- Crear la base de datos "syssecurity"
+CREATE DATABASE syssecurity;
+
+-- Cambiar al contexto de la base de datos "syssecurity"
+USE syssecurity;
+
+-- Crear una tabla para los registros de entrada y salida
+CREATE TABLE RegistrosEntradaSalida (
+    ID INT IDENTITY(1,1) PRIMARY KEY,
+    UsuarioID INT,
+    UsuarioTipo VARCHAR(10),
+    FechaHoraEntradaSalida DATETIME,
+    -- Otros campos según tus requisitos
+);
+
+-- Crear una tabla para los estudiantes
+CREATE TABLE Estudiantes (
+    EstudianteID INT PRIMARY KEY,
+    Nombre VARCHAR(50),
+    Apellido VARCHAR(50),
+    -- Otros campos según tus requisitos
+);
+
+-- Crear una tabla para el personal
+CREATE TABLE Personal (
+    PersonalID INT PRIMARY KEY,
+    Nombre VARCHAR(50),
+    Apellido VARCHAR(50),
+    -- Otros campos según tus requisitos
+);
+
+-- Crear una tabla para los visitantes
+CREATE TABLE Visitantes (
+    VisitanteID INT PRIMARY KEY,
+    Nombre VARCHAR(50),
+    Apellido VARCHAR(50),
+    -- Otros campos según tus requisitos
+);
+
+-- Definir relaciones de clave foránea
+ALTER TABLE RegistrosEntradaSalida
+ADD CONSTRAINT FK_RegistrosEstudiantes
+FOREIGN KEY (UsuarioID)
+REFERENCES Estudiantes(EstudianteID);
+
+ALTER TABLE RegistrosEntradaSalida
+ADD CONSTRAINT FK_RegistrosPersonal
+FOREIGN KEY (UsuarioID)
+REFERENCES Personal(PersonalID);
+
+ALTER TABLE RegistrosEntradaSalida
+ADD CONSTRAINT FK_RegistrosVisitantes
+FOREIGN KEY (UsuarioID)
+REFERENCES Visitantes(VisitanteID);
+
+-- Terminar la creación de la base de datos
